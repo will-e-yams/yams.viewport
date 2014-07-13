@@ -14,10 +14,10 @@
 
 ```
 
-## Notes
+#### Notes
 
 * Uses Bootstrap viewport sizes and nomenclature
-..* `.viewport-xs` (default)
-..* `.viewport-sm` (width >= 750)
-..* `.viewport-md` (width >= 970)
-..* `.viewport-lg` (width >= 1170)
+ * `.viewport-xs` (default)
+ * `.viewport-sm` (width >= 750)
+ * `.viewport-md` (width >= 970)
+ * `.viewport-lg` (width >= 1170)
