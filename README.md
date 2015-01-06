@@ -1,5 +1,6 @@
 # yams.viewport.js
-# a jQuery plugin that adds viewport classes to the body tag
+
+a jQuery plugin that adds viewport classes to the body tag
 
 ## Summary
 
