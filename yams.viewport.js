@@ -56,8 +56,8 @@ $.yams.viewport = (function() {
       if (!_lastViewport || _lastViewport.name != vp.name) {
         // add style
         var $scope = $("body")
-            .removeClass("viewport-xs viewport-sm viewport-md viewport-lg")
-            .addClass("viewport-" + vp.name);
+          .removeClass("viewport-xs viewport-sm viewport-md viewport-lg")
+          .addClass("viewport-" + vp.name);
 
         // trigger change event
         var evt = $.Event("change" + ns, {
@@ -74,7 +74,14 @@ $.yams.viewport = (function() {
 
   //public
   return {
-    init: function() {
+    options: {},
+
+    setOptions: function(opt) {
+      this.options = $.extend({}, DEFAULTS, opt);
+    },
+
+    init: function(options) {
+      this.setOptions(options);
       $(window)
         .on("resize" + ns, _update) // update on resize window
         .trigger("resize" + ns); // initial update
@@ -84,6 +91,6 @@ $.yams.viewport = (function() {
       if (this.DEFAULTS.sm === undefined) init({});
       if (!_lastViewport) _update();
       return _lastViewport;
-    },
+    }
   };
 })();
