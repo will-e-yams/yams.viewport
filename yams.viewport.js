@@ -1,9 +1,9 @@
-﻿
 /* ========================================================================
-* yams.viewport.js
-* version:	1.1
-* author:	Brad Williams <brad.lee.williams@gmail.com>
-* ======================================================================== */
+ * yams.viewport.js
+ * version: 1.2
+ * author:  Brad Williams <brad.lee.williams@gmail.com>
+ * https://github.com/will-e-yams/yams.viewport
+ * ======================================================================== */
 
 if (!$.yams) { $.yams = new Object(); }
 
@@ -17,8 +17,7 @@ $.yams.viewport = (function () {
         lg: 1200, // viewport-lg
         enableResizeTracking: true,
     }
-    var _callbacks = []
-    var _lastViewport = {}
+  var _lastViewport = null;
 
     var _getViewport = function () {
         var viewport = {}
@@ -49,29 +48,26 @@ $.yams.viewport = (function () {
 
         return viewport
     }
-    var _update = function () {
-        var viewport = _getViewport();
+  var _update = function() {
+    var vp = _getViewport();
 
-        if (viewport.name) {
-            if (!_lastViewport
-				|| _lastViewport.name != viewport.name) {
+    if (vp.name) {
+      if (!_lastViewport || _lastViewport.name != vp.name) {
+        // add style
+        var $scope = $("body");
+        $scope.removeClass("viewport-xs viewport-sm viewport-md viewport-lg");
+        $scope.addClass("viewport-" + vp.name);
 
-                // add class
-                $('body')
-                    .removeClass('viewport-xs viewport-sm viewport-md viewport-lg')
-                    .addClass('viewport-' + viewport.name)
+        // trigger change event
+        var evt = $.Event("change" + ns, {
+          viewport: vp,
+          previousViewport: _lastViewport
+        });
+        $scope.trigger(evt);
+      }
 
-                // run callback
-                if (DEFAULTS.enableResizeTracking) {
-                    for (var i = 0; i < _callbacks.length; i++) {
-                        _callbacks[i](viewport)
-                    }
-                }
-            }
-
-            // set this even if name doesn't change because width/height might
-            _lastViewport = viewport
-        }
+      // set this even if name doesn't change because width/height might
+      _lastViewport = vp;
     }
 
     //public
